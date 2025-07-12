@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mobile Slideshow Presentation</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="transition-selector" style="display: none;">
+        <label for="transition-effect">Transition effect</label>
+        <select id="transition-effect" onchange="changeTransitionEffect()">
+            <option value="slide">Slide</option>
+            <option value="fade">Fade</option>
+            <option value="flip">Flip</option>
+        </select>
+    </div>
+    
+    <div class="slideshow-container">
+        <div class="slide-wrapper">
+            <div class="slide active" id="slide-0">
+                <div class="slide-content">
+                    <h1 class="slide-title"></h1>
+                    <div class="slide-image">
+                        <img src="" alt="Slide Image">
+                    </div>
+                    <p class="slide-description"></p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="navigation" style="display: none;">
+            <button class="nav-btn prev-btn" onclick="changeSlide(-1)">‹</button>
+            <button class="nav-btn next-btn" onclick="changeSlide(1)">›</button>
+        </div>
+        
+        <div class="slide-indicators">
+            <div class="indicator active" onclick="currentSlide(1)"></div>
+        </div>
+    </div>
+
+    <script src="slidesData.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
