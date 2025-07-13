@@ -82,7 +82,7 @@ const slidesData = [
 ## File Structure
 
 ```
-PhoneSlides/
+src/
 ├── index.html          # Main HTML file
 ├── script.js           # JavaScript functionality
 ├── slidesData.js       # Slide content data
