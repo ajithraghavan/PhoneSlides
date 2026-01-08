@@ -140,6 +140,28 @@ body {
     color: #666;
     line-height: 1.5;
     margin-top: 20px;
+    white-space: pre-line;
+}
+
+/* Description-only slide layout */
+.slide.description-only .slide-content {
+    justify-content: center;
+}
+
+.slide.description-only .slide-description {
+    font-size: 1.8rem;
+    line-height: 1.6;
+    flex: 1;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    color: #444;
+}
+
+/* Image-only slide layout */
+.slide.image-only .slide-image {
+    flex: 1;
+    max-height: none;
 }
 
 .navigation {
@@ -243,19 +265,23 @@ body {
         max-width: 95%;
         height: 85vh;
     }
-    
+
     .slide-title {
         font-size: 1.5rem;
     }
-    
+
     .slide-description {
         font-size: 1rem;
     }
-    
+
+    .slide.description-only .slide-description {
+        font-size: 1.5rem;
+    }
+
     .navigation {
         padding: 0 10px;
     }
-    
+
     .nav-btn {
         width: 45px;
         height: 45px;

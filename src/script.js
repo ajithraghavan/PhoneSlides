@@ -1,7 +1,5 @@
 
 let currentSlideIndex = 0;
-let touchStartX = 0;
-let touchEndX = 0;
 let currentTransition = 'slide';
 let transitionTypes = ['slide', 'fade', 'flip'];
 
@@ -14,22 +12,47 @@ function initializeSlideshow() {
 function createSlides() {
     const slideWrapper = document.querySelector('.slide-wrapper');
     slideWrapper.innerHTML = '';
-    
+
     slidesData.forEach((slide, index) => {
         const slideElement = document.createElement('div');
         slideElement.className = 'slide';
         slideElement.id = `slide-${index}`;
-        
-        slideElement.innerHTML = `
-            <div class="slide-content">
-                <h1 class="slide-title">${slide.title}</h1>
+
+        const hasImage = slide.image && slide.image.trim() !== '';
+        const hasDescription = slide.description && slide.description.trim() !== '';
+
+        // Add layout class based on content
+        if (!hasImage && hasDescription) {
+            slideElement.classList.add('description-only');
+        } else if (hasImage && !hasDescription) {
+            slideElement.classList.add('image-only');
+        }
+
+        let imageHTML = '';
+        if (hasImage) {
+            imageHTML = `
                 <div class="slide-image">
                     <img src="${slide.image}" alt="Slide ${index + 1}" onerror="this.style.display='none'">
                 </div>
-                <p class="slide-description">${slide.description}</p>
+            `;
+        }
+
+        let descriptionHTML = '';
+        if (hasDescription) {
+            descriptionHTML = `<p class="slide-description">${slide.description}</p>`;
+        }
+
+        slideElement.innerHTML = `
+            <div class="slide-content">
+                <h1 class="slide-title">${slide.title || ''}</h1>
+                ${imageHTML}
+                ${descriptionHTML}
             </div>
         `;
-        
+
+        // Add click/tap navigation
+        slideElement.addEventListener('click', handleSlideClick);
+
         slideWrapper.appendChild(slideElement);
     });
 }
@@ -88,23 +111,20 @@ function updateNavigationButtons() {
 }
 
 
-function handleTouchStart(e) {
-    touchStartX = e.changedTouches[0].screenX;
-}
+function handleSlideClick(e) {
+    const slide = e.currentTarget;
+    const slideRect = slide.getBoundingClientRect();
+    const clickX = e.clientX || (e.touches && e.touches[0].clientX);
+    const slideMiddle = slideRect.left + slideRect.width / 2;
 
-function handleTouchEnd(e) {
-    touchEndX = e.changedTouches[0].screenX;
-    handleSwipe();
-}
-
-function handleSwipe() {
-    const swipeThreshold = 50;
-    const swipeDistance = touchEndX - touchStartX;
-    
-    if (Math.abs(swipeDistance) > swipeThreshold) {
-        if (swipeDistance > 0) {
+    if (clickX < slideMiddle) {
+        // Clicked left side - go to previous (except on first slide)
+        if (currentSlideIndex > 0) {
             changeSlide(-1);
-        } else {
+        }
+    } else {
+        // Clicked right side - go to next (except on last slide)
+        if (currentSlideIndex < slidesData.length - 1) {
             changeSlide(1);
         }
     }
@@ -128,8 +148,6 @@ function handleKeyboard(e) {
 }
 
 document.addEventListener('DOMContentLoaded', initializeSlideshow);
-document.addEventListener('touchstart', handleTouchStart, false);
-document.addEventListener('touchend', handleTouchEnd, false);
 document.addEventListener('keydown', handleKeyboard);
 
 window.addEventListener('resize', () => {
