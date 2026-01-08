@@ -124,6 +124,9 @@ src/
 
 This is a lightweight, standalone project. Feel free to fork and modify for your needs.
 
+Already existing Background Image Credit : Photo by [Alessio Soggetti](https://unsplash.com/photos/mountains-cfKC0UOZHJo?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText)
+      
+
 ## License
 
 Open source project - feel free to use and modify as needed.
