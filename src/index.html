@@ -7,6 +7,26 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    <!-- Configuration Page -->
+    <div class="config-page" id="config-page">
+        <div class="config-card">
+            <h1 class="config-title">PhoneSlides</h1>
+            <p class="config-subtitle">Choose your presentation style</p>
+
+            <div class="config-option">
+                <label for="transition-select">Transition Effect</label>
+                <select id="transition-select">
+                    <option value="default">Default (Slide Up)</option>
+                    <option value="push">Push (Horizontal)</option>
+                    <option value="morph">Morph (Zoom)</option>
+                    <option value="crossfade">Crossfade (Parallax)</option>
+                </select>
+            </div>
+
+            <button id="start-btn" class="start-button">Start Presentation</button>
+        </div>
+    </div>
+
     <div class="transition-selector" style="display: none;">
         <label for="transition-effect">Transition effect</label>
         <select id="transition-effect" onchange="changeTransitionEffect()">
@@ -15,8 +35,8 @@
             <option value="flip">Flip</option>
         </select>
     </div>
-    
-    <div class="slideshow-container">
+
+    <div class="slideshow-container" style="display: none;">
         <div class="slide-wrapper">
             <div class="slide active" id="slide-0">
                 <div class="slide-content">

@@ -309,18 +309,243 @@ body {
     .slide {
         height: 90vh;
     }
-    
+
     .slide-content {
         padding: 20px 15px;
     }
-    
+
     .slide-title {
         font-size: 1.4rem;
         margin-bottom: 15px;
     }
-    
+
     .slide-image {
         max-height: 200px;
         margin: 15px 0;
+    }
+}
+
+/* ==================== */
+/* Configuration Page   */
+/* ==================== */
+
+.config-page {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+    transition: opacity 0.5s ease, visibility 0.5s ease;
+}
+
+.config-page.hidden {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+.config-card {
+    background: white;
+    border-radius: 24px;
+    padding: 40px 30px;
+    max-width: 350px;
+    width: 90%;
+    text-align: center;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+}
+
+.config-title {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.config-subtitle {
+    font-size: 1rem;
+    color: #666;
+    margin-bottom: 30px;
+}
+
+.config-option {
+    margin-bottom: 30px;
+}
+
+.config-option label {
+    display: block;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #555;
+    margin-bottom: 10px;
+    text-align: left;
+}
+
+.config-option select {
+    width: 100%;
+    padding: 14px 16px;
+    font-size: 1rem;
+    border: 2px solid #e0e0e0;
+    border-radius: 12px;
+    background: #f9f9f9;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23666' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 16px center;
+}
+
+.config-option select:focus {
+    outline: none;
+    border-color: #667eea;
+    background-color: white;
+}
+
+.start-button {
+    width: 100%;
+    padding: 16px 24px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: white;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+}
+
+.start-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(102, 126, 234, 0.5);
+}
+
+.start-button:active {
+    transform: translateY(0);
+}
+
+/* ==================== */
+/* New Transitions      */
+/* ==================== */
+
+/* Push transition - next slide (from right) */
+.slide.push-next-transition {
+    animation: pushNextIn 0.5s ease-in-out;
+}
+
+/* Push transition - previous slide (from left) */
+.slide.push-prev-transition {
+    animation: pushPrevIn 0.5s ease-in-out;
+}
+
+/* Morph/Zoom transition */
+.slide.morph-transition {
+    animation: morphIn 0.5s ease-in-out;
+}
+
+/* Default transition (same as existing slide) */
+.slide.default-transition {
+    animation: slideIn 0.5s ease-in-out;
+}
+
+@keyframes pushNextIn {
+    from {
+        opacity: 0;
+        transform: translateX(100%);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes pushPrevIn {
+    from {
+        opacity: 0;
+        transform: translateX(-100%);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes morphIn {
+    from {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* Crossfade transition - both slides visible during transition */
+@keyframes crossfadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes crossfadeOut {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
+}
+
+/* Crossfade requires absolute positioning for overlap */
+.slide-wrapper.crossfade-mode {
+    position: relative;
+}
+
+.slide-wrapper.crossfade-mode .slide {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.slide-wrapper.crossfade-mode .slide.active {
+    z-index: 2;
+}
+
+.slide-wrapper.crossfade-mode .slide.exiting {
+    display: block;
+    z-index: 1;
+}
+
+/* Crossfade animation classes */
+.slide.crossfade-in-transition {
+    animation: crossfadeIn 0.6s ease-in-out;
+}
+
+.slide.crossfade-out-transition {
+    animation: crossfadeOut 0.6s ease-in-out forwards;
+}
+
+/* Responsive config page */
+@media (max-width: 480px) {
+    .config-card {
+        padding: 30px 20px;
+    }
+
+    .config-title {
+        font-size: 1.7rem;
+    }
+
+    .config-subtitle {
+        font-size: 0.9rem;
     }
 }
